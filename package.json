@@ -4,9 +4,11 @@
   "description": "",
   "main": "gulpfile.js",
   "directories": {
-    "test": "mocha"
+    "test": "test"
   },
-  "dependencies": {},
+  "dependencies": {
+    "gulp-cli": "^2.3.0"
+  },
   "devDependencies": {
     "gulp": "^4.0.2",
     "gulp-help-four": "^0.2.3",
@@ -18,9 +20,18 @@
     "readline-sync": "^1.4.10"
   },
   "scripts": {
+    "start": "gulp",
     "test": "mocha --reporter mochawesome"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kwonys93/che4z-demo1.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kwonys93/che4z-demo1/issues"
+  },
+  "homepage": "https://github.com/kwonys93/che4z-demo1#readme"
 }
