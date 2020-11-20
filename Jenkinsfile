@@ -29,7 +29,6 @@ pipeline {
                 sh 'gulp update-cobol'
             }
         }
-        
         stage('Build-cobol') {
             steps {
                 echo 'Building cobol..'
@@ -42,17 +41,15 @@ pipeline {
                 sh 'gulp build-lnk'
             }
         }
-        
         stage('Copy-load') {
             steps {
                 echo 'Copying module to CICS env..'
                 sh 'gulp copy-load'
             }
         }
-        
         stage('Copy-dbrm') {
             steps {
-                echo 'Copying dbrm to db2..'
+                echo 'Copying dbrm to db2 env for db2 bind..'
                 sh 'gulp copy-dbrm'
             }
         }
@@ -68,10 +65,16 @@ pipeline {
                 sh 'gulp bind-n-grant'
             }
         }
-        stage('Test-data') {
+        stage('Test-tran') {
             steps {
-                echo 'Testing data..'
-                sh 'gulp test-data'
+                echo 'Testing transaction..'
+                sh 'gulp test-tran'
+            }
+        }
+         stage('Verify-data') {
+            steps {
+                echo 'verifying data for the test result..'
+                sh 'gulp verify-data'
             }
         }
         /*

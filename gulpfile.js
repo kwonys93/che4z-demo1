@@ -6,25 +6,24 @@ var cmd = require("node-cmd"),
   readlineSync = require("readline-sync"),
   fs = require("fs");
 
-gulp.task("task", function(cb) {
-  cmd.get("ping localhost -t 5", function(err, stdout, stderr) {
+gulp.task("task", function (cb) {
+  cmd.get("ping localhost -t 5", function (err, stdout, stderr) {
     console.log(stdout);
     console.log(stderr);
     cb(err);
   });
 });
 
-
-
-gulp.task("update-cobol", function(callback) {
+gulp.task("update-cobol", function (callback) {
   //   var command = "zowe endevor generate element " + config.testElement + " --type COBOL --override-signout --maxrc 0 --stage-number 1";
   var command =
-    "zowe  endevor update element MARBLE01 --env SMPLTEST --sys MARBLES --sub MARBLES --typ COBOL --override-signout --ff MARBLE01.cbl -i ENDEVOR --comment ysk1 --ccid ysk1";
+    "zowe  endevor update element MARBLE07 --env SMPLTEST --sys MARBLES --sub MARBLES --typ COBOL --override-signout --ff COBOL/MARBLE01.cobol -i ENDEVOR --comment ysk1 --ccid ysk1";
+  //    "zowe  endevor update element MARBLE01 --env SMPLTEST --sys MARBLES --sub MARBLES --typ COBOL --override-signout --ff MARBLE01.cbl -i ENDEVOR --comment ysk1 --ccid ysk1";
 
   simpleCommand(command, "command-archive/update-cobol", callback);
 });
 
-gulp.task("build-cobol", function(callback) {
+gulp.task("build-cobol", function (callback) {
   //   var command = "zowe endevor generate element " + config.testElement + " --type COBOL --override-signout --maxrc 0 --stage-number 1";
   var command =
     "zowe endevor generate element MARBLE01 --env SMPLTEST --sn 1 --sys MARBLES --sub MARBLES --type COBOL --override-signout --cb -i ENDEVOR --comment test223 --ccid abcd";
@@ -37,47 +36,14 @@ gulp.task("build-cobol", function(callback) {
 //var  command = "zowe endevor generate element FAPCOB05 --env SMPLTEST --sn 1 --sys FINANCE --sub ACCTPAY --type COBOL --cb -i ENDEVOR --comment test223 --ccid abcd";
 //     var command = "zowe  endevor list elements -i ENDEVOR --env SMPLTEST --sn 1 --sys FINANCE --sub ACCTPAY --typ COBOL" ;
 
-gulp.task("build-lnk", function(callback) {
+gulp.task("build-lnk", function (callback) {
   //  var command = "zowe endevor generate element " + config.testElement + " --type LNK --override-signout --maxrc 0 --stage-number 1";
   var command =
     "zowe endevor generate element MARBLE01 --env SMPLTEST --sn 1 --sys MARBLES --sub MARBLES --type LNK --cb -i ENDEVOR --comment test223 --ccid abcd --os";
   simpleCommand(command, "command-archive/build-lnk", callback);
 });
 
-gulp.task("bind-n-grant", function(callback) {
-  var ds = config.bindGrantJCL;
-  submitJobAndDownloadOutput(ds, "job-archive/bind-n-grant", 4, callback);
-});
-
-gulp.task("test-data", function(callback) {
-  var ds = config.sqlJCL;
-  submitJobAndDownloadOutput(ds, "job-archive/test-data", 4, callback);
-});
-
-gulp.task("build", gulpSequence("build-cobol", "build-lnk"));
-
-gulp.task("cics-refresh", function(callback) {
-  // var command = 'zowe cics refresh program "' + config.cicsProgram + '"';
-  var command =
-    'zowe cics refresh program "' +
-    config.cicsProgram +
-    '"' +
-    ' --region-name "' +
-    config.cicsRegion +
-    '"';
-
-  simpleCommand(command, "command-archive/cics-refresh", callback);
-});
-
-gulp.task("copy-dbrm", function(callback) {
-  //var command = 'zowe file-master-plus copy data-set "' + config.devDBRMLIB + '" "' + config.testDBRMLIB + '" -m ' + config.testElement;
-  var command =
-    'zowe zos-extended-files copy data-set "KWOYO01.MARBLES.DBRMLIB(MARBLE01)" "KWOYO01.MARBLES.T12M.DBRMLIB(MARBLE01)" --replace';
-
-  simpleCommand(command, "command-archive/copy-dbrm", callback);
-});
-
-gulp.task("copy-load", function(callback) {
+gulp.task("copy-load", function (callback) {
   var command =
     'zowe file-master-plus copy data-set "' +
     config.devLOADLIB +
@@ -90,12 +56,55 @@ gulp.task("copy-load", function(callback) {
   simpleCommand(command, "command-archive/copy-load", callback);
 });
 
+gulp.task("copy-dbrm", function (callback) {
+  var command =
+    'zowe file-master-plus copy data-set "' +
+    config.devDBRMLIB +
+    '" "' +
+    config.testDBRMLIB +
+    '" -m ' +
+    config.testElement;
+  //var command = 'zowe zos-extended-files copy data-set "KWOYO01.MARBLES.DBRMLIB(MARBLE01)" "KWOYO01.MARBLES.T12M.DBRMLIB(MARBLE01)" --replace';
+
+  simpleCommand(command, "command-archive/copy-dbrm", callback);
+});
+
+gulp.task("cics-refresh", function (callback) {
+  // var command = 'zowe cics refresh program "' + config.cicsProgram + '"';
+  var command =
+    'zowe cics refresh program "' +
+    config.cicsProgram +
+    '"' +
+    ' --region-name "' +
+    config.cicsRegion +
+    '"';
+
+  simpleCommand(command, "command-archive/cics-refresh", callback);
+});
+
+gulp.task("bind-n-grant", function (callback) {
+  var ds = config.bindGrantJCL;
+  submitJobAndDownloadOutput(ds, "job-archive/bind-n-grant", 4, callback);
+});
+
+gulp.task("test-tran", function (callback) {
+  var ds = config.testTranJCL;
+  submitJobAndDownloadOutput(ds, "job-archive/test-tran", 4, callback);
+});
+
+gulp.task("verify-data", function (callback) {
+  var ds = config.sqlJCL;
+  submitJobAndDownloadOutput(ds, "job-archive/verify-data", 4, callback);
+});
+
+gulp.task("build", gulpSequence("build-cobol", "build-lnk"));
+
 gulp.task(
   "deploy",
   gulpSequence("copy-dbrm", "copy-load", "bind-n-grant", "cics-refresh")
 );
 
-gulp.task("setupProfiles", function(callback) {
+gulp.task("setupProfiles", function (callback) {
   var host, user, pass;
   host = readlineSync.question("Host name or IP address: ");
   user = readlineSync.question("Username: ");
@@ -139,11 +148,11 @@ function createAndSetProfiles(host, user, pass, callback) {
         " --ru " +
         config.zosmfRejectUnauthorized +
         " --ow",
-      dir: "command-archive/create-zosmf-profile"
+      dir: "command-archive/create-zosmf-profile",
     },
     {
       command: "zowe profiles set zosmf zw",
-      dir: "command-archive/set-zosmf-profile"
+      dir: "command-archive/set-zosmf-profile",
     },
     {
       command:
@@ -160,11 +169,11 @@ function createAndSetProfiles(host, user, pass, callback) {
         " --protocol " +
         config.endevorProtocol +
         " --ow",
-      dir: "command-archive/create-endevor-profile"
+      dir: "command-archive/create-endevor-profile",
     },
     {
       command: "zowe profiles set endevor zw",
-      dir: "command-archive/set-endevor-profile"
+      dir: "command-archive/set-endevor-profile",
     },
     {
       command:
@@ -181,11 +190,11 @@ function createAndSetProfiles(host, user, pass, callback) {
         " --maxrc 0 --stage-number 1 --comment " +
         user +
         " --ow",
-      dir: "command-archive/create-endevor-location-profile"
+      dir: "command-archive/create-endevor-location-profile",
     },
     {
       command: "zowe profiles set endevor-location zw",
-      dir: "command-archive/set-endevor-location-profile"
+      dir: "command-archive/set-endevor-location-profile",
     },
     {
       command:
@@ -202,11 +211,11 @@ function createAndSetProfiles(host, user, pass, callback) {
         " --protocol " +
         config.fmpProtocol +
         " --ow",
-      dir: "command-archive/create-fmp-profile"
+      dir: "command-archive/create-fmp-profile",
     },
     {
       command: "zowe profiles set fmp zw",
-      dir: "command-archive/set-fmp-profile"
+      dir: "command-archive/set-fmp-profile",
     },
     {
       command:
@@ -223,11 +232,11 @@ function createAndSetProfiles(host, user, pass, callback) {
         " --protocol " +
         config.cicsProtocol +
         " --ow",
-      dir: "command-archive/create-cics-profile"
+      dir: "command-archive/create-cics-profile",
     },
     {
       command: "zowe profiles set cics zw",
-      dir: "command-archive/set-cics-profile"
+      dir: "command-archive/set-cics-profile",
     },
     {
       command:
@@ -242,12 +251,12 @@ function createAndSetProfiles(host, user, pass, callback) {
         " --database " +
         config.db2Database +
         " --ow",
-      dir: "command-archive/create-db2-profile"
+      dir: "command-archive/create-db2-profile",
     },
     {
       command: "zowe profiles set db2 zw",
-      dir: "command-archive/set-db2-profile"
-    }
+      dir: "command-archive/set-db2-profile",
+    },
   ];
   submitMultipleSimpleCommands(commands, callback);
 }
@@ -260,7 +269,7 @@ function createAndSetProfiles(host, user, pass, callback) {
  * @param {Array}            [expectedOutputs] array of expected strings to be in the output
  */
 function simpleCommand(command, dir, callback, expectedOutputs) {
-  cmd.get(command, function(err, data, stderr) {
+  cmd.get(command, function (err, data, stderr) {
     //log output
     var content =
       "Error:\n" + err + "\n" + "StdErr:\n" + stderr + "\n" + "Data:\n" + data;
@@ -296,7 +305,7 @@ function submitJobAndDownloadOutput(
   var command = 'zowe jobs submit data-set "' + ds + '" -d ' + dir + " --rfj";
   //var command = 'zowe jobs submit data-set "KWOYO01.JCL(SAMPJCL1)" --rff jobid --rft string';
 
-  cmd.get(command, function(err, data, stderr) {
+  cmd.get(command, function (err, data, stderr) {
     //log output
     var content =
       "Error:\n" + err + "\n" + "StdErr:\n" + stderr + "\n" + "Data:\n" + data;
@@ -334,7 +343,7 @@ function submitJobAndDownloadOutput(
  */
 function submitMultipleSimpleCommands(commands, callback) {
   if (commands.length > 0) {
-    simpleCommand(commands[0].command, commands[0].dir, function(err) {
+    simpleCommand(commands[0].command, commands[0].dir, function (err) {
       if (err) {
         callback(err);
       } else {
@@ -354,7 +363,7 @@ function submitMultipleSimpleCommands(commands, callback) {
  * @param {awaitJobCallback} callback        function to call after completion
  */
 function verifyOutput(data, expectedOutputs, callback) {
-  expectedOutputs.forEach(function(output) {
+  expectedOutputs.forEach(function (output) {
     if (!data.includes(output)) {
       callback(new Error(output + " not found in response: " + data));
     }
@@ -376,7 +385,7 @@ function writeToFile(dir, content) {
     fs.mkdirSync(dir, { recursive: true });
   }
 
-  fs.writeFileSync(filePath, content, function(err) {
+  fs.writeFileSync(filePath, content, function (err) {
     if (err) {
       return console.log(err);
     }
