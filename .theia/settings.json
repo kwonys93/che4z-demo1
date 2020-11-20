@@ -1,5 +1,21 @@
 {
     "broadcom-cobol-lsp.cpy-manager.profiles": "",
     "broadcom-cobol-lsp.cpy-manager.paths-local": [],
-    "broadcom-cobol-lsp.cpy-manager.paths-dsn": []
+    "broadcom-cobol-lsp.cpy-manager.paths-dsn": [],
+    "endevor.connections": [
+        {
+            "name": "DE42EDVR",
+            "hosts": [
+                {
+                    "datasource": "ENDEVOR",
+                    "filters": [],
+                    "id": 0,
+                    "name": "ENDEVOR",
+                    "profileLabel": "DE42EDVR",
+                    "url": "http://mvsde42.lvn.broadcom.net:10443",
+                    "username": "kwoyo01"
+                }
+            ]
+        }
+    ]
 }

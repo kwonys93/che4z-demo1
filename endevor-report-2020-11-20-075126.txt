@@ -1,0 +1,51 @@
+//
+// APIMSGS - url: http://10.175.81.138:10443/endevor/reports/1605858712-444896562-APIMSGS
+//
+
+1CA Endevor SCM Version 18.0.12           Copyright (C) 1986-2018 CA. All Rights Reserved.         20NOV20 16:51:51     PAGE     1   
+                                       E N D E V O R   A P I   E X E C U T I O N   R E P O R T                                       
+                                                                                                                                     
+                                                                                                                                     
+                                                                                                                                     
+ 16:51:51  API0101I  BEGINNING OF API ACTION PROCESSING                                                                              
+           API0100I                                                                                                                  
+           API0100I  ADD      ELEMENT:                                                                                               
+           API0100I  'MARBLE07'                                                                                                      
+           API0100I     MESSAGE DDNAME: APIMSGS                                                                                      
+           API0100I     FROM DIR:                                                                                                    
+           API0100I  '/temp'                                                                                                         
+           API0100I     FILE:                                                                                                        
+           API0100I  'null'                                                                                                          
+           API0100I     FROM    DDNAME: **DYNM**                                                                                     
+           API0100I     TO      ENVIRONMENT: SMPLTEST                                                                                
+           API0100I             SYSTEM: MARBLES                                                                                      
+           API0100I             SUBSYSTEM: MARBLES                                                                                   
+           API0100I             TYPE: COBOL                                                                                          
+           API0100I     OPTIONS                                                                                                      
+           API0100I             CCID: abcd                                                                                           
+           API0100I             COMMENT: test223                                                                                     
+           API0100I             BYPASS GENERATE PROCESSOR: Y                                                                         
+           API0100I                                                                                                                  
+           API0100I  API ACTION REQUEST DATA SUCCESSFULLY PRINTED                                                                    
+           API0100I                                                                                                                  
+ 16:51:51  C1Y0015I  STARTING PARSE OF REQUEST CARDS                                                                                 
+                                                                                                                                     
+  STATEMENT #1                                                                                                                       
+ 16:51:51  C1Y0016I  REQUEST CARDS SUCCESSFULLY PARSED                                                                               
+                                                                                                                                     
+                                                                                                                                     
+ 16:51:51  C1G0202I  ACTION #1 / STMT #1                                                                                             
+ 16:51:51  C1G0203I     ADD      ELEMENT MARBLE07                                                                                    
+ 16:51:51  C1G0221I        FROM DIR:     /temp                                                                                       
+ 16:51:51  C1G0221I        FROM FILE:    null                                                                                        
+ 16:51:51  C1G0204I        TO   ENVIRONMENT: SMPLTEST SYSTEM: MARBLES  SUBSYSTEM: MARBLES  TYPE: COBOL    STAGE ID: T                
+ 16:51:51  C1G0232I        OPTIONS:  BYPASS GENERATE PROCESSOR                                                                       
+ 16:51:51  C1G0232I                  CCID: ABCD                                                                                      
+ 16:51:51  C1G0232I                  COMMENT: TEST223                                                                                
+ 16:51:51  C1G0265I  PROCESSOR GROUP LEMC2 FOR THIS ELEMENT WAS OBTAINED FROM PRIMARY ELEMENT TYPE                                   
+ 16:51:52  SMGR121I  ELEMENT VVLL 0100 CREATED AT LOCATION SMPLTEST/T/MARBLES/MARBLES/COBOL                                          
+ 16:51:52  SMGR127I  ELEMENT VVLL 0100 WRITTEN TO:                                                                                   
+ 16:51:52  C1G0000I     DATA SET KWOYO01.MARBLES.COBOL2                                                                              
+ 16:51:52  C1G0000I     MEMBER MARBLE07                                                                                              
+ 16:51:52  C1G1000I  FINGERPRINT#: 01343EA000FC0075                                                                                  
+ 16:51:52  C1G0200I  ELEMENT ACTION REQUEST PROCESSING COMPLETED, HIGHEST ENDEVOR RC WAS 0000                                        
