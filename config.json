@@ -1,10 +1,10 @@
 {
-  "bindGrantJCL": "KWOYO01.MARBLES.JCL(MARBIND7)",
-  "testTranJCL": "KWOYO01.MARBLES.JCL(TESTMB07)",
-  "sqlJCL": "KWOYO01.MARBLES.JCL(MARBDB7)",
+  "bindGrantJCL": "KWOYO01.MARBLES.JCL(MARBIND)",
+  "testTranJCL": "KWOYO01.MARBLES.JCL(TESTTRAN)",
+  "sqlJCL": "KWOYO01.MARBLES.JCL(MARBDB2)",
   "cicsConsole": "KWOYO01",
   "cicsPort": 6000,
-  "cicsProgram": "MARBLE07",
+  "cicsProgram": "MARBLE01",
   "cicsProtocol": "http",
   "cicsRegion": "CICS00A1",
   "cicsTran": "MB07",
@@ -24,7 +24,7 @@
   "fmpRejectUnauthorized": false,
   "marbleColor": "VIOLET",
   "testDBRMLIB": "KWOYO01.MARBLES.T12M.DBRMLIB",
-  "testElement": "MARBLE07",
+  "testElement": "MARBLE01",
   "testLOADLIB": "CAAPJMF.CICS00.LOADLIB",
   "zosmfPort": 443,
   "zosmfRejectUnauthorized": false
